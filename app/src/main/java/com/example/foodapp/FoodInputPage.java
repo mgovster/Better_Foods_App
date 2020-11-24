@@ -14,6 +14,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,9 +35,13 @@ List<String> ingredients;
 List<String> allergies;
 Map<Integer,Boolean> allergySelection;
 List<CheckBox> allegButs;
+String mUserID;
+FirebaseUser mUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mUserID = getIntent().getStringExtra("USERID");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         myList = new HashMap<Integer, EditText>();  //myList of text views will ignore the one, so as long as this has elements, it can remove
         textCount=1;
         allergyNum = 11;
@@ -87,10 +97,32 @@ List<CheckBox> allegButs;
         allegButs.add(vegetarian);
         allegButs.add(pescatarian);
 
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Saving Profile", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//                goToProfile();
+//            }
+//        });
+
 
 
 
     }
+
+    private void goToProfile() {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(getApplicationContext(),"Welcome " + mUser.getDisplayName(),Toast.LENGTH_SHORT);
+    }
+
     public void getAllergies(){
         Boolean checkDaBox;
         for(int i = 0; i < allergyNum; i++){
