@@ -80,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void goToHome(){
         Intent intent = new Intent(this, FoodInputPage.class);
+        intent.putExtra("binary",mAllergyBinary);
         startActivity(intent);
     }
 

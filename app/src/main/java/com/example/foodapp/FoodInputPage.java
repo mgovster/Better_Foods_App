@@ -37,6 +37,7 @@ Map<Integer,Boolean> allergySelection;
 List<CheckBox> allegButs;
 String mUserID;
 FirebaseUser mUser;
+String binary;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +97,15 @@ FirebaseUser mUser;
         allegButs.add(vegan);
         allegButs.add(vegetarian);
         allegButs.add(pescatarian);
+        binary = getIntent().getStringExtra("binary");
+        char[] c = binary.toCharArray();
+        int i = 0;
+        for(CheckBox box : allegButs){
+
+            if(c[i++] == '1')
+                box.setChecked(true);
+
+        }
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
